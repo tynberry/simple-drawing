@@ -4,9 +4,11 @@ use macroquad::prelude::*;
 #[macroquad::main("egui with macroquad")]
 async fn main() {
     //YES
+    let mut point_a: Vec2 = Vec2::new(0.0, 0.0);
     let mut s_1: f64 = 0.0;
     let mut s_2: f64 = 0.0;
     let mut ang: f64 = 0.0;
+    let mut thicc: f32 = 5.0;
 
     loop {
         clear_background(WHITE);
@@ -16,6 +18,11 @@ async fn main() {
         egui_macroquad::ui(|egui_ctx| {
             egui::Window::new("Ovládání")
                 .show(egui_ctx, |ui| {
+                    ui.horizontal(|ui| {
+                        ui.label("Bod A");
+                        ui.add(egui::widgets::DragValue::new(&mut point_a.x));
+                        ui.add(egui::widgets::DragValue::new(&mut point_a.y));
+                    });
                     ui.horizontal(|ui| {
                         ui.label("Strana 1");
                         ui.add(egui::widgets::DragValue::new(&mut s_1));
@@ -35,7 +42,10 @@ async fn main() {
                             ang = degrees.to_radians();
                             response.changed = true;
                         }
-
+                    });
+                    ui.horizontal(|ui| {
+                        ui.label("Thiccness");
+                        ui.add(egui::widgets::DragValue::new(&mut thicc));
                     });
                 });
         });
