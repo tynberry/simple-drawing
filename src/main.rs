@@ -1,4 +1,4 @@
-use egui::DragValue;
+use egui::{DragValue, color_picker::color_edit_button_rgb};
 use macroquad::prelude::*;
 
 #[macroquad::main("egui with macroquad")]
@@ -9,6 +9,8 @@ async fn main() {
     let mut s_2: f64 = 420.0;
     let mut ang: f64 = -69.0 * std::f64::consts::PI / 180.0;
     let mut thicc: f32 = 5.0;
+
+    let mut color: Color = BLACK;
 
     loop {
         clear_background(WHITE);
@@ -47,10 +49,14 @@ async fn main() {
                         ui.label("Thiccness");
                         ui.add(egui::widgets::DragValue::new(&mut thicc));
                     });
+                    let mut color_temp = [color.r, color.g, color.b];
+                    color_edit_button_rgb(ui, &mut color_temp);
+                    color.r = color_temp[0];
+                    color.g = color_temp[1];
+                    color.b = color_temp[2];
                 });
         });
 
-        egui_macroquad::draw();
 
         //vypočti třetí stranu 
         //let s_3 = s_1.powi(2) + s_2.powi(2) + s_1 * s_2 * ang.cos();
@@ -65,7 +71,7 @@ async fn main() {
             point_b.x,
             point_b.y,
             thicc, 
-            BLACK
+            color
         );        
         draw_line(
             point_b.x,
@@ -73,7 +79,7 @@ async fn main() {
             point_c.x,
             point_c.y,
             thicc, 
-            BLACK
+            color
         );        
         draw_line(
             point_a.x,
@@ -81,13 +87,15 @@ async fn main() {
             point_c.x,
             point_c.y,
             thicc, 
-            BLACK
+            color
         );        
 
-        draw_circle(point_a.x, point_a.y, thicc / 2.0, BLACK);
-        draw_circle(point_b.x, point_b.y, thicc / 2.0, BLACK);
-        draw_circle(point_c.x, point_c.y, thicc / 2.0, BLACK);
+        draw_circle(point_a.x, point_a.y, thicc / 2.0, color);
+        draw_circle(point_b.x, point_b.y, thicc / 2.0, color);
+        draw_circle(point_c.x, point_c.y, thicc / 2.0, color);
 
+
+        egui_macroquad::draw();
 
         next_frame().await;
     }
