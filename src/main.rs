@@ -25,7 +25,7 @@ async fn main() {
                         ui.add(egui::widgets::DragValue::new(&mut s_2));
                     });
                     ui.horizontal(|ui| {
-                        ui.label("Uhel");
+                        ui.label("Úhel");
 
                         let mut degrees = ang.to_degrees();
                         let mut response = ui.add(DragValue::new(&mut degrees).speed(1.0).suffix("°"));
