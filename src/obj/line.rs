@@ -5,10 +5,10 @@ use super::Object;
 
 #[derive(Clone, Copy)]
 pub struct Line {
-    first: Vec2,
-    second: Vec2,
-    thickness: f32,
-    color: Color,
+    pub first: Vec2,
+    pub second: Vec2,
+    pub thickness: f32,
+    pub color: Color,
 }
 
 impl Object for Line {
